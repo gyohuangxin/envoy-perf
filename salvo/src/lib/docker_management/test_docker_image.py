@@ -112,6 +112,31 @@ def test_run_image(mock_docker_run, mock_docker_list, mock_docker_stop):
   mock_docker_run.assert_called_once_with('test_image', stdout=True,
       stderr=True, detach=False, **run_parameters._asdict())
 
+@mock.patch.object(docker_image.DockerImage, 'stop_image')
+@mock.patch.object(docker_image.DockerImage, 'list_processes')
+@mock.patch.object(docker.models.containers.ContainerCollection, 'run')
+def test_run_image(mock_docker_run, mock_docker_list, mock_docker_stop):
+  """Verify that when failing to run image, it will exit and show container logs"""
+
+  # Mock the actual docker client invocation to return output from the container
+  mock_docker_output = "docker output"
+  mock_docker_run.return_value = mock_docker_output
+  mock_docker_list.return_value = ['dummy_image']
+  mock_docker_stop.return_value = None
+
+  new_docker_image = docker_image.DockerImage()
+  run_parameters = docker_image.DockerRunParameters(
+    environment={},
+    command="python -c 'print(\"Failed to run image\"); exit(1)'",
+    volumes={},
+    network_mode='host',
+    tty=False,
+  )
+  assert new_docker_image.run_image('test_image', run_parameters) == \
+      mock_docker_output
+  mock_docker_run.assert_called_once_with('test_image', stdout=True,
+      stderr=True, detach=False, **run_parameters._asdict())
+
 def test_list_processes():
   """Verify that we can list running images."""
 
