@@ -47,7 +47,7 @@ JSON Example:
     "envoyImage": "envoyproxy/envoy:v1.21.0"
   },
   "environment": {
-    "testVersion": "IPV_V4ONLY",
+    "testVersion": IPV_V4ONLY,
     "envoyPath": "envoy",
     "outputDir": "/home/ubuntu/nighthawk_output",
     "testDir": "/home/ubuntu/nighthawk_tests"
@@ -168,6 +168,8 @@ bazel-bin/salvo --job <path to>/demo_jobcontrol.yaml
 ```
 
 Salvo creates a symlink in the local directory to the location of the  output artifacts for each Envoy version tested.
+
+## Benchmark Results of Salvo
 
 ## Testing Salvo
 

@@ -1,0 +1,22 @@
+remote: false
+binaryBenchmark: true
+environment:
+  outputDir: /tmp/nighthawk_output
+  testDir: /tmp/nighthawk_tests
+  testVersion: IPV_V4ONLY
+images:
+  nighthawkBenchmarkImage: envoyproxy/nighthawk-benchmark-dev:latest
+  nighthawkBinaryImage: envoyproxy/nighthawk-dev:latest
+source:
+- identity: SRCID_ENVOY
+  commit_hash: v1.21.0
+  additional_hashes: [9105f45c7fb872d1db2bf8a9bc908368effe77cd]
+  source_url: https://github.com/gyohuangxin/envoy.git
+  bazelOptions:
+  - parameter: --define tcmalloc=gperftools
+- identity: SRCID_NIGHTHAWK
+  source_url: https://github.com/envoyproxy/nighthawk.git
+  bazelOptions:
+  - parameter: --jobs 16
+  - parameter: --define tcmalloc=gperftools
+

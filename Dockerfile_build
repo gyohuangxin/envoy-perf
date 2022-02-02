@@ -1,0 +1,5 @@
+FROM envoyproxy/envoy-build-ubuntu:e7ea4e81bbd5028abb9d3a2f2c0afe063d9b62c0
+COPY . /usr/src/envoy-perf
+WORKDIR /usr/src/envoy-perf
+RUN ci/do_ci.sh build 
+ENTRYPOINT ./salvo/bazel-bin/salvo --job binary-benchmarking.yaml

@@ -186,10 +186,13 @@ class SourceManager(object):
     addtional_hashes = source_repo.additional_hashes
     if addtional_hashes:
       hash_set = hash_set.union(addtional_hashes)
+    
+    log.info(f"DEBUG!!! source_repo: {source_repo}")
 
     # Was a specific hash specified? Use it as the baseline
     if source_repo.commit_hash and addtional_hashes:
       hash_set = hash_set.union([source_repo.commit_hash])
+      log.info(f"DEBUG!!! hash_set: {hash_set}")
       return hash_set
 
     # If we don't have a commit_hash specified and no additional hashes
