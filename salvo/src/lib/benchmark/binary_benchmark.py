@@ -108,7 +108,6 @@ class Benchmark(base_benchmark.BaseBenchmark):
     and server binaries
 
     """
-
     self._nighthawk_builder = nighthawk_builder.NightHawkBuilder(self._source_manager)
     self._nighthawk_builder.build_nighthawk_binaries()
     self._nighthawk_builder.build_nighthawk_benchmarks()
@@ -116,7 +115,6 @@ class Benchmark(base_benchmark.BaseBenchmark):
     nighthawk_source = self._source_manager.get_source_tree(
         proto_source.SourceRepository.SourceIdentity.SRCID_NIGHTHAWK
     )
-    self._benchmark_dir = nighthawk_source.get_source_directory()
 
   def _prepare_envoy(self) -> None:
     """Prepare the envoy source for the benchmark.

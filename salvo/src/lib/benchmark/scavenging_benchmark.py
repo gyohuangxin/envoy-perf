@@ -7,6 +7,7 @@ https://github.com/envoyproxy/nighthawk/blob/master/benchmarks/README.md
 
 import subprocess
 import logging
+import os
 
 import api.control_pb2 as proto_control
 import api.source_pb2 as proto_source
@@ -66,6 +67,11 @@ class Benchmark(base_benchmark.BaseBenchmark):
     and server binaries
 
     """
+    if os.getenv("NIGHTHAWK_BUILDED") == 1:
+      log.debug("Nighthwak has been built already and skip...")
+      return 
+    log.debug("Build nighthawk...")
+
     manager = source_manager.SourceManager(self._control)
 
     # This builder needs to be a self object so that the temporary cache
@@ -80,6 +86,7 @@ class Benchmark(base_benchmark.BaseBenchmark):
     )
     self._benchmark_dir = nighthawk_source.get_source_directory()
     log.debug(f"NightHawk benchmark dir {self._benchmark_dir}")
+    os.environ["NIGHTHAWK_BUILDED"] = 1
 
   def execute_benchmark(self) -> None:
     """Execute the scavenging benchmark.
