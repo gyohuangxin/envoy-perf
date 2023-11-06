@@ -16,3 +16,11 @@ local_repository(
     name = "salvo_build_config",
     path = ".",
 )
+
+load("//bazel:python_dependencies.bzl", "salvo_python_dependencies")
+
+salvo_python_dependencies()
+
+load("@salvo_pip3//:requirements.bzl", salvo_pip3 = "install_deps")
+
+salvo_pip3()

@@ -14,7 +14,7 @@ cd "$SCRIPTPATH"
 
 source_venv "$VENV_DIR"
 echo "Installing requirements..."
-pip install -r requirements.txt
+pip install -r tools/requirements.txt
 
 echo "Running Python format check..."
 python format_python_tools.py $1

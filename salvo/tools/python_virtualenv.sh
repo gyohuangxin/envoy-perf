@@ -15,5 +15,5 @@ reuse_or_create_salvo_venv() {
   fi
 
   source "${VENV_DIR}"/venv/bin/activate
-  pip install -r requirements.txt
+  # pip install -r requirements.txt
 }
